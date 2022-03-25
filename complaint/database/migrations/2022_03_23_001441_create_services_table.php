@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('description',8192);
+            $table->foreignId('department_id')->constrained('departments','id');
+            $table->foreignId('responsible_id')->constrained('users','id');
             $table->timestamps();
         });
     }

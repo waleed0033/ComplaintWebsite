@@ -11,7 +11,7 @@ class DepartmentController extends Controller
     {
         $departments = Department::get();
 
-        return view('departments.index',[
+        return view('departments.index', [
             'departments' => $departments
         ]);
     }
@@ -25,13 +25,10 @@ class DepartmentController extends Controller
     {
         $request->validate([
             'name' => ['required'],
-            'manager_id' => ['required','numeric','exists:users,id'],
+            'manager_id' => ['required', 'numeric', 'exists:users,id'],
         ]);
 
-        Department::create([
-            'name' => $request->name,
-            'manager_id' => $request->manager_id,
-        ]);
+        Department::create($request->only(['name', 'manager_id']));
 
         return redirect()->route('departments.index');
 
@@ -41,27 +38,36 @@ class DepartmentController extends Controller
     {
         $department1 = ($department);
 
-        return view('departments.show',[
+        return view('departments.show', [
             'department1' => $department1
         ]);
     }
 
     public function edit(Department $department)
     {
-        return view('departments.edit',[
+        return view('departments.edit', [
             'department' => $department
         ]);
     }
 
-    public function update(Department $department,Request $request)
+    public function update(Department $department, Request $request)
     {
         $request->validate([
             'name' => ['required'],
-            'manager_id' => ['numeric','exists:users,id'],
+            'manager_id' => ['numeric', 'exists:users,id'],
         ]);
 
-        $department->update($request->only(['name','manager_id']));
+        $department->update($request->only(['name', 'manager_id']));
 
-        return redirect()->route('departments.show',$department);
+        return redirect()->route('departments.show', $department);
+    }
+
+    public function services(Department $department)
+    {
+        $services = $department->services;
+
+        return view('services.index',[
+            'services' => $services
+        ]);
     }
 }

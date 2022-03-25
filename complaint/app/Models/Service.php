@@ -20,4 +20,9 @@ class Service extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
+
+    public function responsibleBy()
+    {
+        return $this->hasOne(User::class,'id','responsible_id');
+    }
 }

@@ -12,7 +12,7 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($service as $employee)
+            @forelse($department1->employees as $employee)
                 <tr>
                     <td>{{$loop->iteration}}</td>
                     <th scope="row">{{$employee->name}}</th>

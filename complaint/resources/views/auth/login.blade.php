@@ -11,7 +11,7 @@
                     <form method="POST" action="{{route('login')}}">
                         @csrf
                         <div class="mb-3">
-                            <label class="mb-2 text-muted" for="email">E-Mail Address</label>
+                            <label class="mb-2 text-muted" for="email">Email Address</label>
                             <input id="email" type="email" class="form-control @error('msg') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
                             @error('msg')
                             <div class="invalid-feedback">

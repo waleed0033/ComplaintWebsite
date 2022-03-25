@@ -19,11 +19,11 @@ class loginController extends Controller
             'password' => ['required'],
         ]);
 
-        if(!auth()->attempt($request->only('email','password')))
+        if(!auth()->attempt($request->only('email','password'),$request->only('remember')))
         {
             return back()->withErrors(['msg'=>'Email or Password are not correct']);
         }
 
-        //return redirect()->route('home');
+        return redirect()->route('home');
     }
 }

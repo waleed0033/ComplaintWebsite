@@ -23,4 +23,14 @@ class Department extends Model
     {
         return $this->hasMany(User::class,'department_id','id');
     }
+
+    public function mangeBy()
+    {
+        return $this->hasone(User::class,'id','manager_id');
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class,'department_id','id');
+    }
 }
