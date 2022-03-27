@@ -20,6 +20,7 @@ class ServiceController extends Controller
     public function create()
     {
         $departments = Department::get();
+
         return view('services.create', [
             'departments' => $departments,
         ]);
@@ -47,15 +48,18 @@ class ServiceController extends Controller
 
     public function show(Service $service)
     {
-        return view('services.update', [
+        return view('services.show', [
             'service' => $service
         ]);
     }
 
     public function edit(Service $service)
     {
+        $departments = Department::get();
+
         return view('services.edit', [
-            'service' => $service
+            'service' => $service,
+            'departments' => $departments,
         ]);
     }
 
@@ -64,14 +68,14 @@ class ServiceController extends Controller
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
-            //'department_id' => ['required', 'numeric', 'exists:departments,id'],
+            'department_id' => ['required', 'numeric', 'exists:departments,id'],
             'responsible_id' => ['required', 'numeric', 'exists:users,id']
         ]);
 
         $service->update($request->only([
             'title',
             'description',
-            //'department_id',
+            'department_id',
             'responsible_id'
         ]));
 

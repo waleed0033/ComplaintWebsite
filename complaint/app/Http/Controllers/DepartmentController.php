@@ -24,8 +24,8 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required'],
-            'manager_id' => ['required', 'numeric', 'exists:users,id'],
+            'name' => ['required', 'min:3', 'max:255'],
+            'manager_id' => ['numeric', 'exists:users,id'],
         ]);
 
         Department::create($request->only(['name', 'manager_id']));
@@ -36,10 +36,8 @@ class DepartmentController extends Controller
 
     public function show(Department $department)
     {
-        $department1 = ($department);
-
         return view('departments.show', [
-            'department1' => $department1
+            'department' => $department
         ]);
     }
 
@@ -53,7 +51,7 @@ class DepartmentController extends Controller
     public function update(Department $department, Request $request)
     {
         $request->validate([
-            'name' => ['required'],
+            'name' => ['required', 'min:3', 'max:255'],
             'manager_id' => ['numeric', 'exists:users,id'],
         ]);
 
@@ -62,12 +60,17 @@ class DepartmentController extends Controller
         return redirect()->route('departments.show', $department);
     }
 
-    public function services(Department $department)
+    public function destroy(Department $department)
+    {
+        $department->delete();
+
+        return redirect()->route('departments.index');
+    }
+
+    public function servicesApi(Department $department)
     {
         $services = $department->services;
 
-        return view('services.index',[
-            'services' => $services
-        ]);
+        return $services;
     }
 }

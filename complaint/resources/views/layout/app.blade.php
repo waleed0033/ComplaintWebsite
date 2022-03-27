@@ -9,9 +9,31 @@
     <title>Complaint System</title>
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('home') }}">Complaint System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('departments.index') }}">Departments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('services.index') }}">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('complaints.index') }}">Complaints</a>
+                    </li>
+                </ul>
+                @auth
+                <form class="d-flex">
+                    @csrf
+                    <button class="btn btn-light" type="submit">Logout</button>
+                </form>
+                @endauth
+            </div>
         </div>
     </nav>
 

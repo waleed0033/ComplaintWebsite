@@ -2,9 +2,12 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="col-lg-6">
-            <div class="container my-5 py-3 bg-light border border-secondary rounded-3">
+    <div class="container-md">
+        <h2 class="display-4">Create a new Service</h2>
+        <p class="lead mb-5">Please fill all the information that are required blow</p>
+
+        <div class="row">
+            <div class="col-md-5">
                 <form action="{{ route('services.store') }}" method="post">
                     @csrf
 
@@ -60,7 +63,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Create a new Service</button>
+                    <button type="submit" class="btn btn-dark">Create a new Service</button>
 
                 </form>
             </div>

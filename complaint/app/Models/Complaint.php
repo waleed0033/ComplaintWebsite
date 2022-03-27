@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class Complaint extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'service_id',
+        'issuer_id',
+        'responsible_id',
         'title',
-        'description',
-        'department_id',
-        'responsible_id'
+        'status',
+        'priority'
     ];
 
     protected $casts = [
@@ -21,13 +23,8 @@ class Service extends Model
         'updated_at' => 'datetime'
     ];
 
-    public function responsibleBy()
+    public function complaintRecords()
     {
-        return $this->hasOne(User::class,'id','responsible_id');
-    }
-
-    public function complaints()
-    {
-        return $this->hasMany(Complaint::class,'service_id','id');
+        return $this->hasMany(ComplaintRecord::class, 'complaint_id', 'id');
     }
 }

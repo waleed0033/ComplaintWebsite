@@ -7,14 +7,18 @@
             <div class=" col-md-4 col-lg-3 m-1">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h5 class="card-title"><a href="{{route('services.edit',$service)}}">{{$service->title}}</a>
+                        <h5 class="card-title">
+                            <a class="link-secondary" href="{{route('services.show',$service)}}">{{$service->title}}</a>
                         </h5>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Title : {{$service->title}}</li>
                             <li class="list-group-item">Description : {{$service->description}}</li>
-                            <li class="list-group-item">Responsible By {{$service->responsibleBy->name}}</li>
+                            <li class="list-group-item">Manage by {{$service->responsibleBy->name}}</li>
                             <li class="list-group-item">Created at {{$service->created_at}}</li>
                             <li class="list-group-item">Last update {{$service->updated_at}}</li>
+                            <div class="card-body">
+                                <a href="{{route('services.edit',$service)}}" class="card-link link-secondary">Edit</a>
+                            </div>
                         </ul>
                     </div>
                 </div>
@@ -25,7 +29,8 @@
         <div class=" col-md-4 col-lg-3 m-1">
             <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="{{route('services.create')}}">Create a new service</a></h5>
+                    <h5 class="card-title"><a class="link-secondary" href="{{route('services.create')}}">Create a new
+                            service</a></h5>
                 </div>
             </div>
         </div>
