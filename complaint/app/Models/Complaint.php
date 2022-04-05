@@ -27,4 +27,40 @@ class Complaint extends Model
     {
         return $this->hasMany(ComplaintRecord::class, 'complaint_id', 'id');
     }
+
+    public function responsibleBy()
+    {
+        return $this->belongsTo(User::class, 'responsible_id', 'id');
+    }
+
+    public function issuerBy()
+    {
+        return $this->belongsTo(User::class, 'issuer_id', 'id');
+    }
+
+    public function serviceInfo()
+    {
+        return $this->belongsTo(Service::class,'service_id','id');
+    }
+
+    public function getStatus() : String
+    {
+        return match ($this->status) {
+            0 => "Open",
+            1 => "Closed",
+            default => "unknown",
+        };
+    }
+
+    public function getPriority() : String
+    {
+        return match ($this->priority) {
+            1 => "Low",
+            2 => "Mid low",
+            3 => "Mid",
+            4 => "High",
+            5 => "Urgent",
+            default => "unknown",
+        };
+    }
 }

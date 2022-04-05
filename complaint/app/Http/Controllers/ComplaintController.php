@@ -11,10 +11,10 @@ class ComplaintController extends Controller
 {
     public function index()
     {
-        $conplaints = Complaint::paginate(20);
+        $complaints = Complaint::with('responsibleBy')->get();
 
-        return view('complaints.index',[
-        'conplaints' => $conplaints,
+        return view('complaints.index', [
+            'complaints' => $complaints,
         ]);
     }
 
@@ -29,6 +29,15 @@ class ComplaintController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'title' => ['required', 'string', 'min:3', 'max:255'],
+            'description' => ['required', 'string', 'min:3', 'max:1023'],
+            'department_id' => ['required', 'numeric', 'exists:departments,id'],
+            'service_id' => ['required', 'numeric', 'exists:services,id'],
+            'priority' => ['required', 'numeric', 'min:1', 'max:5'],
+        ]);
+
         $service = Service::find($request->service_id);
         $issuer_id = auth()->user()->id;
 
@@ -48,12 +57,45 @@ class ComplaintController extends Controller
             'description' => $request->description
         ]);
 
-
-        return redirect()->route('complaints.show',$complaint);
+        return redirect()->route('home');
     }
 
     public function show(Complaint $complaint)
     {
         return dd($complaint->complaintRecords);
+    }
+
+    public function edit(Complaint $complaint)
+    {
+        $complaintRecords = $complaint->complaintRecords()->with('issueredBy')->get();
+
+        return view('complaints.edit', [
+            'complaint' => $complaint,
+            'complaintRecords' => $complaintRecords,
+        ]);
+    }
+
+    public function update(Complaint $complaint, Request $request)
+    {
+        $request->validate([
+            'description' => ['required', 'string', 'min:3', 'max:1023'],
+        ]);
+
+        $complaint->complaintRecords()->create([
+            'issuer_id' => auth()->user()->id,
+            'description' => $request->description
+        ]);
+
+        //to update the model's update timestamp.
+        $complaint->touch();
+
+        return redirect()->route('home');
+    }
+
+    public function close(Complaint $complaint)
+    {
+        $complaint->update(['status' => 1]);
+
+        return redirect()->route('complaints.index');
     }
 }

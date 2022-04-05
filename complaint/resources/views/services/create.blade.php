@@ -24,7 +24,7 @@
 
                     <div class="my-3">
                         <label for="description" class="form-label">Description of the Service</label>
-                        <textarea type="text" name="description"
+                        <textarea name="description"
                                   class="form-control @error('description') is-invalid @enderror" id="description"
                                   required>{{old('description')}}</textarea>
                         @error('description')
@@ -36,17 +36,15 @@
 
                     <div class="my-3">
                         <label for="department_id" class="form-label">Department Name</label>
-                        <select class="form-select" name="department_id" required>
+                        <select class="form-select @error('department_id') is-invalid @enderror" name="department_id" required>
                             <option disabled selected hidden>Please select the department</option>
                             @foreach($departments as $department)
                                 <option value="{{$department->id}}">{{$department->name}}</option>
                             @endforeach
                         </select>
-                        @error('department_id')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
+                            @error('department_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                     </div>
 
                     <div class="my-3">

@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function issueredComplaints()
+    {
+        return $this->hasMany(Complaint::class,'issuer_id','id');
+    }
+
+    public function responsibleComplaints()
+    {
+        return $this->hasMany(Complaint::class,'responsible_id','id');
+    }
 }

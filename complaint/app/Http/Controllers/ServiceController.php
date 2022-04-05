@@ -10,7 +10,7 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        $services = Service::get();
+        $services = Service::with('responsibleBy')->get();
 
         return view('services.index', [
             'services' => $services
@@ -80,5 +80,12 @@ class ServiceController extends Controller
         ]));
 
         return redirect()->route('departments.show', $service);
+    }
+
+    public function destroy(Service $service)
+    {
+        $service->delete();
+
+        return redirect()->route('services.index');
     }
 }

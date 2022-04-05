@@ -3,9 +3,11 @@
 @section('content')
 
     <div class="container-md">
+        <h5 class="display-5">Complaints</h5>
+
         <div class="row">
-            <p class="lead">List of complaints that are created by you</p>
-            <div class="col-10">
+            <p class="lead">List of complaints</p>
+            <div class="table-responsive">
                 <table class="table">
                     <thead>
                     <tr>
@@ -19,15 +21,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @forelse($conplaints as $conplaint)
+                    @forelse($complaints as $complaint)
                         <tr scope="row">
-                            <td>{{$conplaint->id}}</td>
-                            <td>{{$conplaint->title}}</td>
-                            <td>{{$conplaint->updated_at->format('m/d H:i')}}</td>
-                            <td>{{$conplaint->responsible_id}}</td>
-                            <td>{{$conplaint->status}}</td>
-                            <td>{{$conplaint->priority}}</td>
-                            <td><a class="btn btn-dark" href="#">Details</a></td>
+                            <td>{{$complaint->id}}</td>
+                            <td>{{$complaint->title}}</td>
+                            <td>{{$complaint->updated_at->format('m/d H:i')}}</td>
+                            <td>{{$complaint->responsibleBy->name}}</td>
+                            <td>{{$complaint->getStatus()}}</td>
+                            <td>{{$complaint->getPriority()}}</td>
+                            <td><a class="btn btn-dark" href="{{route('complaints.edit',$complaint)}}">Details</a></td>
                         </tr>
                     @empty
                         <h5 class="display-5">There is no services in this department</h5>

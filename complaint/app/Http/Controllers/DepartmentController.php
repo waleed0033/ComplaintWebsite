@@ -9,7 +9,7 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        $departments = Department::get();
+        $departments = Department::with('mangeBy','services','employees')->get();
 
         return view('departments.index', [
             'departments' => $departments

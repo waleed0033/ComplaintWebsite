@@ -18,4 +18,9 @@ class ComplaintRecord extends Model
     protected $casts = [
         'created_at' => 'datetime',
     ];
+
+    public function issueredBy()
+    {
+        return $this->hasOne(User::class,'id','issuer_id');
+    }
 }

@@ -13,7 +13,7 @@
                     <div class="my-3">
                         <label for="title" class="form-label">Title of the service</label>
                         <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
-                               value="{{ $service->title }}">
+                               value="{{ $service->title }}" required>
                         @error('title')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -24,7 +24,7 @@
                         <label for="description" class="form-label">Description</label>
                         <input type="text" name="description"
                                class="form-control @error('description') is-invalid @enderror" id="description"
-                               value="{{ $service->description }}">
+                               value="{{ $service->description }}" required>
                         @error('description')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -34,7 +34,8 @@
 
                     <div class="my-3">
                         <label for="department_id" class="form-label">Department Name</label>
-                        <select class="form-select" id="department_id" name="department_id" onchange="fetchDate()"
+                        <select class="form-select @error('department_id') is-invalid @enderror" id="department_id"
+                                name="department_id"
                                 required>
                             <option disabled selected hidden>Please select the department</option>
                             @foreach($departments as $department)
@@ -57,7 +58,7 @@
                             service</label>
                         <input type="text" name="responsible_id"
                                class="form-control @error('responsible_id') is-invalid @enderror" id="responsible_id"
-                               value="{{ $service->responsible_id }}">
+                               value="{{ $service->responsible_id }}" required>
                         @error('responsible_id')
                         <div class="invalid-feedback">
                             {{ $message }}
