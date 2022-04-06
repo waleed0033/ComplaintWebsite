@@ -31,7 +31,7 @@
                             <td><a class="btn btn-dark" href="{{route('complaints.edit',$complaint)}}">Details</a></td>
                         </tr>
                     @empty
-                        <h5 class="display-5">There is no Complaint</h5>
+                        <p class="lead">There is no complaint that you are responsible about</p>
                     @endforelse
                     </tbody>
                 </table>
@@ -68,7 +68,7 @@
                             <td><a class="btn btn-dark" href="{{route('complaints.edit',$complaint)}}">Details</a></td>
                         </tr>
                     @empty
-                        <h5 class="display-5">There is no Complaint</h5>
+                        <p class="lead">There is no complaint that you are created by you</p>
                     @endforelse
                     </tbody>
                 </table>

@@ -13,8 +13,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ route('home') }}">Complaint System</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -32,11 +32,13 @@
                 @endauth
             </ul>
             @auth
-                <a href="{{route('complaints.create')}}" class="btn btn-light mx-2">Create Complaint</a>
-                <form class="d-flex" method="post" action="{{route('logout')}}">
-                    @csrf
-                    <button class="btn btn-light" type="submit">Logout</button>
-                </form>
+                <a href="{{route('complaints.create')}}" class="btn btn-light mx-lg-2">Create Complaint</a>
+                <div class="mt-1">
+                    <form class="d-flex" method="post" action="{{route('logout')}}">
+                        @csrf
+                        <button class="btn btn-light" type="submit">Logout</button>
+                    </form>
+                </div>
             @endauth
         </div>
     </div>

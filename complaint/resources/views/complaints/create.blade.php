@@ -116,7 +116,7 @@
             let id = document.getElementById('department_id').selectedIndex;
             let service_select = document.getElementById('service_id');
 
-            fetch('http://127.0.0.1:8000/api/departments/' + id + '/services')
+            fetch('/api/departments/' + id + '/services')
                 .then(response => response.json())
                 .then(service_select.replaceChildren())
                 .then(date => date.map(function (x) {
