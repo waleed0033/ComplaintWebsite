@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Complaint;
 use App\Models\Department;
 use App\Models\Service;
+use App\Notifications\ComplaintCreated;
+use App\Notifications\ComplaintUpdated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class ComplaintController extends Controller
 {
@@ -57,6 +60,9 @@ class ComplaintController extends Controller
             'description' => $request->description
         ]);
 
+        $complaint->issuerBy->notify(new ComplaintCreated($complaint));
+        //$complaint->responsibleBy->notify(new ComplaintCreated($complaint));
+
         return redirect()->route('home');
     }
 
@@ -88,6 +94,9 @@ class ComplaintController extends Controller
 
         //to update the model's update timestamp.
         $complaint->touch();
+
+        $complaint->issuerBy->notify(new ComplaintUpdated($complaint));
+        //$complaint->responsibleBy->notify(new ComplaintUpdated($complaint));
 
         return redirect()->route('home');
     }
