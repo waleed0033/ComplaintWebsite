@@ -17,6 +17,10 @@ class loginController extends Controller
         $request->validate([
             'email' => ['required','email','min:6','max:255'],
             'password' => ['required'],
+            'g-recaptcha-response' => ['required','captcha']
+        ],
+        [
+            'g-recaptcha-response.required' => 'please press I\'m not a robot',
         ]);
 
         if(!auth()->attempt($request->only('email','password'),$request->only('remember')))

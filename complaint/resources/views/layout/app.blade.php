@@ -19,7 +19,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                @auth
+                @can('isAdmin')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('departments.index') }}">Departments</a>
                     </li>
@@ -29,7 +29,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('complaints.index') }}">Complaints</a>
                     </li>
-                @endauth
+                @endcan
             </ul>
             @auth
                 <a href="{{route('complaints.create')}}" class="btn btn-light mx-lg-2">Create Complaint</a>

@@ -31,12 +31,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [homeController::class, 'index'])->name('home');
 
-    Route::resource('departments', DepartmentController::class);
-
-    Route::resource('services', ServiceController::class);
-
     Route::post('complaints/{complaint}/close', [ComplaintController::class, 'close'])->name('complaints.close');
-    Route::resource('complaints', ComplaintController::class);
 
+    Route::middleware('isAdmin')->group(function () {
+        Route::resource('departments', DepartmentController::class);
+
+        Route::resource('services', ServiceController::class);
+
+        Route::resource('complaints', ComplaintController::class);
+    });
 });
+
 
